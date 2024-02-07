@@ -39,6 +39,13 @@ export default class App {
   public listen() {
     const {MONGO_URI, MONGO_DB, PORT} = process.env;
     mongoose.connect(MONGO_URI!, {dbName: MONGO_DB})
+
+    mongoose.connection.on("connecion",() => {
+      console.log("connected");
+      this.initializeMiddlewares();
+      this.app.listen(`listening ${PORT}`);
+    })
+    
     this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
