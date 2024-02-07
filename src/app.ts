@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import IController from "./interfaces/controller.interface";
 import {config} from "dotenv";
+import mongoose from "mongoose";
 
 export default class App {
   public app: express.Application;
@@ -36,6 +37,8 @@ export default class App {
   }
 
   public listen() {
+    const {MONGO_URI, MONGO_DB, PORT} = process.env;
+    mongoose.connect(MONGO_URI!, {dbName: MONGO_DB})
     this.app.listen(this.port, () => {
       console.log(`App listening on the port ${this.port}`);
     });
