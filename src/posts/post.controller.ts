@@ -32,6 +32,8 @@ export default class PostsController implements Controller {
     this.post.findById(id)
       .then((post) => {
         response.send(post);
+      }).catch(error => {
+        response.send(error.message)
       });
   }
  
